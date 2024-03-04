@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/info_avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/ic_people"
         app:layout_constraintEnd_toEndOf="parent"

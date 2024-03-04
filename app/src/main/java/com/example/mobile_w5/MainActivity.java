@@ -31,6 +31,7 @@ public class MainActivity extends FragmentActivity implements MainCallbacks{
         if (sender.equals("BLUE-FRAG")) {
             try { // forward blue-data to redFragment using its callback method
                 detailsFragment.onMsgFromMainToFragment(strValue);
+
             }
             catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }

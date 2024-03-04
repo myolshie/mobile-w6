@@ -27,26 +27,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button android:id="@+id/first_button"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="First"/>
-        <Button android:id="@+id/previous_button"
+
+        <Button
+            android:id="@+id/first_button"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="Previous"/>
-        <Button android:id="@+id/next_button"
-            android:layout_width="50dp"
+            android:text="First"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/previous_button"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="Next"/>
-        <Button android:id="@+id/last_button"
-            android:layout_width="50dp"
+            android:text="Previous"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="Last"/>
+            android:text="Next"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/last_button"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="Last"
+            android:textSize="10sp" />
     </LinearLayout>
 
 </LinearLayout>

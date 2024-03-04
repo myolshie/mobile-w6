@@ -80,31 +80,54 @@ public class DetailsFragment extends Fragment implements FragmentCallbacks {
         previous_button = layout_details.findViewById(R.id.previous_button);
         next_button = layout_details.findViewById(R.id.next_button);
         last_button = layout_details.findViewById(R.id.last_button);
+
         first_button.setOnClickListener(v -> {
             onMsgFromMainToFragment(0);
             main.onMsgFromFragToMain("RED-FRAG", 0);
+            first_button.setEnabled(false);
+            previous_button.setEnabled(false);
+            last_button.setEnabled(true);
+            next_button.setEnabled(true);
         });
         previous_button.setOnClickListener(v -> {
             if (currentPosition > 0) {
                 onMsgFromMainToFragment(currentPosition - 1);
                 main.onMsgFromFragToMain("RED-FRAG", currentPosition);
+                if (currentPosition == 0)
+                {
+                    first_button.setEnabled(false);
+                    previous_button.setEnabled(false);
+                }
+                last_button.setEnabled(true);
+                next_button.setEnabled(true);
             }
         });
         next_button.setOnClickListener((v -> {
             if (currentPosition < infos.size() - 1) {
                 onMsgFromMainToFragment(currentPosition + 1);
                 main.onMsgFromFragToMain("RED-FRAG", currentPosition);
+                first_button.setEnabled(true);
+                previous_button.setEnabled(true);
+                if (currentPosition == infos.size() - 1){
+                    last_button.setEnabled(false);
+                    next_button.setEnabled(false);
+                }
             }
         }));
         last_button.setOnClickListener(v -> {
             onMsgFromMainToFragment(infos.size()-1);
             main.onMsgFromFragToMain("RED-FRAG", infos.size()-1);
+            first_button.setEnabled(true);
+            previous_button.setEnabled(true);
+            last_button.setEnabled(false);
+            next_button.setEnabled(false);
         });
         return layout_details;
     }
     private int getCurrentPosition(int position) {
         return position;
     };
+
     @Override
     public void onMsgFromMainToFragment(int strValue) {
         Info info = infos.get(strValue);
@@ -113,5 +136,23 @@ public class DetailsFragment extends Fragment implements FragmentCallbacks {
         txtClass.setText("Lớp: " + info.classroom);
         txtName.setText("Họ tên: " + info.name);
         txtGrade.setText("Điểm trung bình: " + info.grade.toString());
+        if (currentPosition == 0 )
+        {
+            first_button.setEnabled(false);
+            previous_button.setEnabled(false);
+        }
+        else {
+            first_button.setEnabled(true);
+            previous_button.setEnabled(true);
+        }
+        if (currentPosition == infos.size()-1)
+        {
+            last_button.setEnabled(false);
+            next_button.setEnabled(false);
+        }
+        else {
+            last_button.setEnabled(true);
+            next_button.setEnabled(true);
+        }
     }
 }
