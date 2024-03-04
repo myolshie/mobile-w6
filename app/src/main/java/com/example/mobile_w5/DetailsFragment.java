@@ -2,6 +2,7 @@ package com.example.mobile_w5;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -66,20 +67,20 @@ public class DetailsFragment extends Fragment implements FragmentCallbacks {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-// inflate res/layout_red.xml which includes a textview and a button
-        LinearLayout layout_details = (LinearLayout) inflater.inflate(R.layout.fragment_details, null);
+        ConstraintLayout layout_details = (ConstraintLayout) inflater.inflate(R.layout.fragment_details, null);
         txtId = layout_details.findViewById(R.id.details_id);
         txtName = layout_details.findViewById(R.id.details_name);
         txtClass = layout_details.findViewById(R.id.details_classroom);
         txtGrade = layout_details.findViewById(R.id.details_grade);
-// show string argument supplied by constructor (if any!)
         try { Bundle arguments = getArguments(); }
-        catch (Exception e) { Log.e("RED BUNDLE ERROR – ", "" + e.getMessage()); }
+        catch (Exception e) { Log.e("ERROR – ", "" + e.getMessage()); }
 
         first_button = layout_details.findViewById(R.id.first_button);
         previous_button = layout_details.findViewById(R.id.previous_button);
         next_button = layout_details.findViewById(R.id.next_button);
         last_button = layout_details.findViewById(R.id.last_button);
+        previous_button.setEnabled(false);
+        next_button .setEnabled(false);
 
         first_button.setOnClickListener(v -> {
             onMsgFromMainToFragment(0);

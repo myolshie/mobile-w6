@@ -59,7 +59,7 @@ public class ListFragment extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-                LinearLayout layout_list = (LinearLayout) inflater.inflate(R.layout.fragment_list, null);
+                ConstraintLayout layout_list = (ConstraintLayout) inflater.inflate(R.layout.fragment_list, null);
                 final TextView selector = layout_list.findViewById(R.id.selector);
                 RecyclerView recyclerView = layout_list.findViewById(R.id.recyclerView);
                 recyclerView.setBackgroundColor(Color.parseColor("#ffccddff"));
@@ -75,7 +75,6 @@ class Student {
         String name;
         String classroom;
         Double grade;
-
         public Student(String id, String avatar, String name, String classroom, Double grade) {
                 this.id = id;
                 this.avatar = avatar;

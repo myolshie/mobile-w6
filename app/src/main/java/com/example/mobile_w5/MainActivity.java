@@ -24,7 +24,7 @@ public class MainActivity extends FragmentActivity implements MainCallbacks{
     @Override
     public void onMsgFromFragToMain(String sender, int strValue) {
 // show message arriving to MainActivity
-        Toast.makeText(getApplication(), " MAIN GOT>> " + sender + "\n" + strValue, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplication(), " MAIN GOT>> " + sender + "\n" + strValue, Toast.LENGTH_LONG).show();
         if (sender.equals("RED-FRAG")) {
             StudentAdapter.selectViewHolder(strValue);
         }
