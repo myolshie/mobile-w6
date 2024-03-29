@@ -1,6 +1,8 @@
 package com.example.mobile_w5;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +44,35 @@ public class ListFragment extends Fragment {
         public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 students = new ArrayList<>();
-                students.add(new Student("A1_9829", "https://picsum.photos/200","Nguyen Thi H", "A1", 9.10));
-                students.add(new Student("A1_1809", "https://picsum.photos/200","Le Thi A", "A1", 8.00));
-                students.add(new Student("A2_3509", "https://picsum.photos/200","Van Thi B", "A2", 7.16));
-                students.add(new Student("A2_3100", "https://picsum.photos/200","Duong Thi C", "A3", 8.17));
-                students.add(new Student("A1_1120", "https://picsum.photos/200","Ly Thi D", "A1", 9.12));
-                students.add(new Student("A4_4120", "https://picsum.photos/200","Tran Thi E", "A4", 6.10));
-                students.add(new Student("A2_8100", "https://picsum.photos/200","Truong Thi F", "A2", 5.50));
-                students.add(new Student("A4_1160", "https://picsum.photos/200","Nguyen Thi G", "A4", 4.10));
+                SQLDatabase dbHelper = new SQLDatabase(getActivity());
+
+                // Retrieve data from SQLite database
+                SQLiteDatabase db = dbHelper.getReadableDatabase();
+                Cursor cursor = dbHelper.getAllStudents();
+
+                // Parse the retrieved data into Student objects and add them to the ArrayList
+                if (cursor.moveToFirst()) {
+                        do {
+                                int studentIdIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_ID);
+                                int studentNameIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_NAME);
+                                int classNameIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_CLASSID);
+                                int scoreIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_SCORE);
+
+                                if (studentIdIndex >= 0 && studentNameIndex >= 0 && classNameIndex >= 0 && scoreIndex >= 0) {
+                                        String studentId = cursor.getString(studentIdIndex);
+                                        String studentName = cursor.getString(studentNameIndex);
+                                        String className = cursor.getString(classNameIndex);
+                                        double score = cursor.getDouble(scoreIndex);
+
+                                        students.add(new Student(studentId, "", studentName, className, score));
+                                } else {
+                                        // Handle the case where one or more column indices are invalid
+                                        Log.e("DBHelper", "One or more column indices are invalid");
+                                }
+                        } while (cursor.moveToNext());
+                }
+                cursor.close();
+                db.close();
                 try {
                         context = getActivity();
                         main = (MainActivity) getActivity();
