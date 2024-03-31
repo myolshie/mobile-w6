@@ -15,7 +15,6 @@ public class SQLDatabase extends SQLiteOpenHelper {
     public  static final String STUDENT_ID ="MaHS";
     public  static final String STUDENT_NAME ="TenHS";
     public  static final String STUDENT_SCORE ="Diem";
-    public  static final String STUDENT_CLASSID = "MaLop";
     public  static final String TABLE_CLASSES = "LOP";
     public  static final String CLASS_ID ="MaLop";
     public  static final String CLASS_NAME ="TenLop";
@@ -27,7 +26,7 @@ public class SQLDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createStudentsTable = "CREATE TABLE " + TABLE_STUDENTS + "(" +
-                STUDENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                STUDENT_ID + " TEXT," +
                 STUDENT_NAME + " TEXT," +
                 STUDENT_SCORE + " REAL," +
                 CLASS_ID + " INTEGER)";
@@ -47,9 +46,10 @@ public class SQLDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long addStudent(String name, double score, int classId) {
+    public long addStudent(String stuid, String name, double score, int classId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(STUDENT_ID, stuid);
         values.put(STUDENT_NAME, name);
         values.put(STUDENT_SCORE, score);
         values.put(CLASS_ID, classId);
@@ -59,7 +59,14 @@ public class SQLDatabase extends SQLiteOpenHelper {
     }
     public Cursor getAllStudents() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_STUDENTS, null);
+        String query = "SELECT " +
+                "s." + STUDENT_ID + ", " +
+                "s." + STUDENT_NAME + ", " +
+                "s." + STUDENT_SCORE + ", " +
+                "c." + CLASS_NAME + " " +
+                "FROM " + TABLE_STUDENTS + " s " +
+                "JOIN " + TABLE_CLASSES + " c ON s." + CLASS_ID + " = c." + CLASS_ID;
+        return db.rawQuery(query, null);
     }
     public long addClass(String className) {
         SQLiteDatabase db = this.getWritableDatabase();

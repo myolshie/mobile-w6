@@ -14,17 +14,18 @@ public class MainActivity extends FragmentActivity implements MainCallbacks{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SQLDatabase dbClass = new SQLDatabase(this);
-        long classId1 = dbClass.addClass("A1");
-        long classId2 = dbClass.addClass("A2");
-        long classId3 = dbClass.addClass("A3");
+        dbClass.addClass("A1");
+        dbClass.addClass("A2");
+        dbClass.addClass("A3");
+        dbClass.addClass("A4");
 
-        long studentId1 = dbClass.addStudent("Nguyen Thi H", 9.10, 1);
-        long studentId2 = dbClass.addStudent("Le Thi A", 8.00, 2);
-        long studentId3 = dbClass.addStudent("Van Thi B", 7.10, 3);
-        long studentId4 = dbClass.addStudent("Le Thi C", 6.00, 2);
-        long studentId5 = dbClass.addStudent("Van Thi D", 5.13, 3);
-        long studentId6 = dbClass.addStudent("Le Thi E", 4.00, 2);
-        long studentId7 = dbClass.addStudent("Van Thi F", 7.23, 3);
+        dbClass.addStudent("9829","Nguyen Thi H", 9.10, 1);
+        dbClass.addStudent("1809","Le Thi A", 8.00, 1);
+        dbClass.addStudent("3509","Van Thi B", 7.10, 2);
+        dbClass.addStudent("3100","Le Thi C", 6.00, 2);
+        dbClass.addStudent("1120","Van Thi D", 5.13, 1);
+        dbClass.addStudent("4120","Le Thi E", 4.00, 4);
+        dbClass.addStudent("8100","Van Thi F", 7.23, 2);
         super.onCreate(savedInstanceState); setContentView(R.layout.activity_main);
         ft = getSupportFragmentManager().beginTransaction(); listFragment = ListFragment.newInstance("first-blue");
         ft.replace(R.id.list_holder, listFragment); ft.commit();

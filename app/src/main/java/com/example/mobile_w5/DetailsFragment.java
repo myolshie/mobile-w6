@@ -64,7 +64,7 @@ public class DetailsFragment extends Fragment implements FragmentCallbacks {
             do {
                 int studentIdIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_ID);
                 int studentNameIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_NAME);
-                int classNameIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_CLASSID);
+                int classNameIndex = cursor.getColumnIndex(SQLDatabase.CLASS_NAME);
                 int scoreIndex = cursor.getColumnIndex(SQLDatabase.STUDENT_SCORE);
 
                 if (studentIdIndex >= 0 && studentNameIndex >= 0 && classNameIndex >= 0 && scoreIndex >= 0) {
@@ -72,11 +72,11 @@ public class DetailsFragment extends Fragment implements FragmentCallbacks {
                     String studentName = cursor.getString(studentNameIndex);
                     String className = cursor.getString(classNameIndex);
                     double score = cursor.getDouble(scoreIndex);
-
+                    studentId = className + "_" + studentId;
                     infos.add(new Info(studentId, "", studentName, className, score));
                 } else {
                     // Handle the case where one or more column indices are invalid
-                    Log.e("DBHelper", "One or more column indices are invalid");
+                    Log.e("DB", "One or more column indices are invalid");
                 }
             } while (cursor.moveToNext());
         }
